@@ -1,0 +1,9 @@
+telegrambot/Main.class
+telegrambot/service/BotService.class
+telegrambot/service/BotMessages.class
+telegrambot/service/HttpService.class
+telegrambot/dto/BotAnswer$BotAnswerBuilder.class
+telegrambot/dto/BotAnswer.class
+telegrambot/domain/Joke.class
+telegrambot/domain/TipoResposta.class
+telegrambot/service/JokeService.class
