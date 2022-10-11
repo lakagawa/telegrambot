@@ -82,25 +82,28 @@ public class JokeService {
                 isReveal = true;
                 return BotAnswer.builder()
                         .message(String.format(BOT_ANSWER, joke.getDelivery()))
-                        .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                        .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
+                        .listaButton(new String [] {"Bora!", "Talvez mais tarde", "Nope"})
                         .build();
             }
 
-            if(userMessage.equals(joke.getDelivery().toLowerCase(Locale.ROOT).replaceAll("[^a-zA-Z0-9_ ]", ""))){
+            if(userMessage.replaceAll("[^a-zA-Z0-9_ ]", "").equals(joke.getDelivery().toLowerCase(Locale.ROOT).replaceAll("[^a-zA-Z0-9_ ]", ""))){
                 isReveal = true;
                 return BotAnswer.builder()
                         .message(BOT_JOKE_CONGRATS)
-                        .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                        .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
+                        .listaButton(new String [] {"Bora!", "Talvez mais tarde", "Nope"})
                         .build();
             } else {
                 return BotAnswer.builder()
                         .message(BOT_JOKE_TRY_AGAIN)
-                        .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                        .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
+                        .listaButton(new String [] {"Desisto!"})
                         .build();
             }
         }
 
-        if(isReveal && userMessage.contains("nao")) {
+        if(isReveal && userMessage.contains("nope")) {
             return BotAnswer.builder()
                     .message(BOT_SEE_YOU)
                     .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)

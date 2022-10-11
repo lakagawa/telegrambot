@@ -18,6 +18,7 @@ import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 import telegrambot.domain.Joke;
 import telegrambot.dto.BotAnswer;
+import telegrambot.service.BotService;
 import telegrambot.service.JokeService;
 
 public class Main {
@@ -42,7 +43,8 @@ public class Main {
 
 		String msg = "";
 		Joke joke = null;
-		JokeService ps = new JokeService();
+		JokeService jokeService = new JokeService();
+		BotService botService = new BotService();
 
 		// Loop infinito pode ser alterado por algum timer de intervalo curto.
 		while (true) {
@@ -72,37 +74,12 @@ public class Main {
 
 					String msgUpdated = update.message().text().toLowerCase(Locale.ROOT);
 
-					BotAnswer botAnswer = ps.validateTypeOfMessage(msgUpdated);
+					BotAnswer botAnswer = jokeService.validateTypeOfMessage(msgUpdated);
 
 					System.out.println("id? " + update.message().chat().id());
 
+					sendResponse = bot.execute(botService.createSendMessageObject(update.message().chat().id(), botAnswer, update.message().messageId()));
 
-
-//					String[] lista = new String [] {"Bora!", "Talvez mais tarde", "Nope"};
-//
-//					ReplyKeyboardMarkup replyKeyboardMarkup = null;
-//					replyKeyboardMarkup = new ReplyKeyboardMarkup(lista);
-//					replyKeyboardMarkup.oneTimeKeyboard(true);
-//
-//
-//					SendMessage mess = new SendMessage(update.message().chat().id(), msgFinal);
-//					mess.replyMarkup(replyKeyboardMarkup);
-//					mess.replyToMessageId(update.message().messageId());
-
-//
-//					replyKeyboardMarkup = new ReplyKeyboardMarkup(new String[]{});
-//					mess.replyMarkup(replyKeyboardMarkup);
-//
-//
-//					//funciona
-//					sendResponse = bot.execute(mess);
-
-					//montar aqui antes de mandar a resposta :D
-
-					sendResponse = bot.execute(new SendMessage(update.message().chat().id(), botAnswer.getMessage()));
-
-
-					//new ReplyKeyboardMarkup(lista, true, true, "", true);
 					// Verificacao de mensagem enviada com sucesso.
 					System.out.println("Mensagem Enviada? " + sendResponse.isOk());
 					fisrt = false;
