@@ -39,10 +39,7 @@ public class Main {
 		// Controle de off-set, isto e, a partir deste ID sera lido as mensagens
 		// pendentes na fila.
 		int m = 0;
-		boolean fisrt = true;
 
-		String msg = "";
-		Joke joke = null;
 		JokeService jokeService = new JokeService();
 		BotService botService = new BotService();
 
@@ -82,7 +79,6 @@ public class Main {
 
 					// Verificacao de mensagem enviada com sucesso.
 					System.out.println("Mensagem Enviada? " + sendResponse.isOk());
-					fisrt = false;
 				}
 			}
 		}
