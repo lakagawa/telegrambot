@@ -6,8 +6,6 @@ import com.pengrad.telegrambot.request.SendMessage;
 import telegrambot.domain.TipoResposta;
 import telegrambot.dto.BotAnswer;
 
-import java.util.List;
-
 public class BotService {
 
     public SendMessage createSendMessageObject(Long chatId, BotAnswer botAnswer, Integer messageId) {

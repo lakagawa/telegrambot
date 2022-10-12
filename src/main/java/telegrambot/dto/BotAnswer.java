@@ -1,12 +1,11 @@
 package telegrambot.dto;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 import telegrambot.domain.TipoResposta;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class BotAnswer {
     private String message;
