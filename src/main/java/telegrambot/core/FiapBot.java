@@ -49,7 +49,7 @@ public class FiapBot {
         while(true) {
             // Executa comando no Telegram para obter as mensagens pendentes a partir de um
             // off-set (limite inicial).
-            updatesResponse = bot.execute(new GetUpdates().limit(initialization.getUpdatesLimit()));
+            updatesResponse = bot.execute(new GetUpdates().limit(initialization.getUpdatesLimit()).offset(offSetStart));
 
             // Lista de mensagens.
             List<Update> updates = updatesResponse.updates();
