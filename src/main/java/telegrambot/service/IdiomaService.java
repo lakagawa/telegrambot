@@ -7,7 +7,6 @@ import java.util.Locale;
 public class IdiomaService {
     public static Idioma getIdiomaAndSetLocale(String idioma) {
         Idioma eIdioma = Idioma.valueOf(idioma.toUpperCase(Locale.ROOT));
-        Locale.setDefault(new Locale(idioma));
 
         switch (eIdioma){
             case EN:
