@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import telegrambot.domain.Idioma;
 import telegrambot.domain.Joke;
 import telegrambot.domain.TipoResposta;
 import telegrambot.dto.BotAnswer;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 
+import static telegrambot.service.BotMessages.*;
+
 @Getter
 @Setter
 @Log
@@ -22,6 +25,7 @@ public class JokeService implements ConfigLocalMessage {
     private Joke joke;
     private HttpService http;
     private boolean isReveal;
+    private Idioma idioma;
 
     public JokeService() {
         this.http = new HttpService();
@@ -29,8 +33,8 @@ public class JokeService implements ConfigLocalMessage {
     }
 
     public Joke getNewJoke() throws IOException {
-        //String language = Locale.getDefault().getLanguage();    // TODO Tornar a linguagem dinamica na chamada da JokeApi
-        String response = http.get("https://jokeapi.dev/joke/Any?format=json&blacklistFlags=nsfw,racist,sexist&lang=en&type=twopart");
+        String response = http.get("https://jokeapi.dev/joke/Any?format=json&blacklistFlags=nsfw,racist,sexist&type=twopart&lang="
+                + idioma.toString().toLowerCase(Locale.ROOT));
 
         joke = new Gson().fromJson(response, Joke.class);
 
@@ -40,26 +44,32 @@ public class JokeService implements ConfigLocalMessage {
     }
 
     public BotAnswer validateTypeOfMessage(String userMessage) {
-
-        //TODO - se for de boas vindas
-        if(userMessage.contains(getTextMessage("bot.greeting.afternoon"))
-                || userMessage.contains(getTextMessage("bot.greeting.night"))
-                || userMessage.contains(getTextMessage("bot.greeting.morning"))) {
+        if(userMessage.contains("/start")){
             return BotAnswer.builder()
-                    .message(getTextMessage("bot.greeting.language"))
+                    .message(BOT_LANGUAGE)
                     .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                    .listaButton(getTextMessage("choice.language").split("|"))
+                    .listaButton(new String [] {"PT \uD83C\uDDE7\uD83C\uDDF7", "EN \t\uD83C\uDDFA\uD83C\uDDF8", "ES \uD83C\uDDEA\uD83C\uDDE6"})
                     .build();
         }
+        // TODO - indentificar o idioma
+        if(userMessage.contains("pt ")
+                || userMessage.contains("en ")
+                || userMessage.contains("es ")) {
+            try {
+                this.idioma = IdiomaService.getIdiomaAndSetLocale(userMessage.substring(0, 2));
 
-        //TODO - Iniciando a brincadeira
-        if(Arrays.asList(getTextMessage("choice.language").split("|")).contains(userMessage)) {
-            //Locale.setDefault(new Locale("en", "US"));
-            return BotAnswer.builder()
-                    .message(getTextMessage("bot.greeting"))
-                    .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                    .listaButton(getTextMessage("choice.jokes").split("|"))
-                    .build();
+                return BotAnswer.builder()
+                        .message(getTextMessage("bot.greeting"))
+                        .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
+                        .listaButton(getTextMessage("choice.jokes").split("\\|"))
+                        .build();
+
+            } catch(Exception ex){
+                return BotAnswer.builder()
+                        .message(getTextMessage("bot_dont_understanding"))
+                        .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                        .build();
+            }
         }
 
         //TODO - se ele deseja iniciar uma piada nova
@@ -95,7 +105,7 @@ public class JokeService implements ConfigLocalMessage {
                 return BotAnswer.builder()
                         .message(String.format(getTextMessage("bot.joke.answer"), joke.getDelivery()))
                         .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                        .listaButton(getTextMessage("choice.jokes").split("|"))
+                        .listaButton(getTextMessage("choice.jokes").split("\\|"))
                         .build();
             }
 
@@ -104,13 +114,13 @@ public class JokeService implements ConfigLocalMessage {
                 return BotAnswer.builder()
                         .message(getTextMessage("bot.joke.congrats"))
                         .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                        .listaButton(getTextMessage("choice.jokes").split("|"))
+                        .listaButton(getTextMessage("choice.jokes").split("\\|"))
                         .build();
             } else {
                 return BotAnswer.builder()
                         .message(getTextMessage("bot.joke.try_again"))
                         .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                        .listaButton(getTextMessage("choice.quit").split("|"))  // TODO Verificar se ocorre erro pela falta do "|"
+                        .listaButton(new String[] { getTextMessage("choice.quit") })  // TODO Verificar se ocorre erro pela falta do "|"
                         .build();
             }
         }
@@ -122,6 +132,12 @@ public class JokeService implements ConfigLocalMessage {
                     .build();
         }
 
+        if(isReveal && userMessage.contains("talvez mais tarde")) {
+            return BotAnswer.builder()
+                    .message(BOT_MAYBE_LATER)
+                    .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                    .build();
+        }
 
         return BotAnswer.builder()
                 .message(getTextMessage("bot_dont_understanding"))

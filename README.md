@@ -56,3 +56,4 @@ Cadastre a variável de ambiente `TOKEN_BOT` antes de executar.
 - https://www.ometrics.com/support/regular-expression/
 - https://www.rexegg.com/regex-quickstart.html
 - https://howtodoinjava.com/java/basics/java-naming-conventions/
+- https://refactoring.guru/design-patterns/chain-of-responsibility

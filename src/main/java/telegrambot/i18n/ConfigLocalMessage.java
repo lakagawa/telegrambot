@@ -13,8 +13,8 @@ public interface ConfigLocalMessage {
      */
     default String getTextMessage(String value) {
         try {
-            ResourceBundle MESSAGE = ResourceBundle.getBundle("message", Locale.getDefault());
-            return new String(MESSAGE.getString(value).getBytes(MESSAGE.getString("telegramBot.encoding")));
+            ResourceBundle message = ResourceBundle.getBundle("message", Locale.getDefault());
+            return new String(message.getString(value).getBytes(), message.getString("telegramBot.encoding"));
         } catch (UnsupportedEncodingException e) {
             return value;
         }
