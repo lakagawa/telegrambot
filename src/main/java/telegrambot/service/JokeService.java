@@ -10,6 +10,7 @@ import telegrambot.domain.Joke;
 import telegrambot.domain.TipoResposta;
 import telegrambot.dto.BotAnswer;
 import telegrambot.i18n.ConfigLocalMessage;
+import telegrambot.utils.RegexUtil;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -53,9 +54,7 @@ public class JokeService implements ConfigLocalMessage {
                     .build();
         }
         // TODO - indentificar o idioma
-        if( userMessage.matches("(\\bpt\\b).*")
-                || userMessage.matches("(\\ben\\b).*")
-                || userMessage.matches("(\\bes\\b).*")) {
+        if(userMessage.matches(RegexUtil.getRegexMatchLanguague())) {
             try {
                 this.idioma = IdiomaService.getIdiomaAndSetLocale(userMessage.substring(0, 2));
 
@@ -74,7 +73,8 @@ public class JokeService implements ConfigLocalMessage {
         }
 
         //TODO - se ele deseja iniciar uma piada nova
-        if(userMessage.contains(getTextMessage("bot.choice.positive")) && isReveal) {
+        if(userMessage.matches(RegexUtil.getRegexCaseInsensitive(getTextMessage("bot.choice.positive")))
+                && isReveal) {
             try {
                 joke = getNewJoke();
             } catch (IOException e) {
@@ -98,7 +98,7 @@ public class JokeService implements ConfigLocalMessage {
         //TODO - se usuário esta tentando adivinhar qual é a resposta
         if(!isReveal) {
             //TODO - se usuário desistiu de tentar
-            if(userMessage.matches("(?i).*" + getTextMessage("bot.choice.quit") + ".*")) {
+            if(userMessage.matches(RegexUtil.getRegexCaseInsensitive(getTextMessage("bot.choice.quit")))) {
                 isReveal = true;
                 return BotAnswer.builder()
                         .message(String.format(getTextMessage("bot.message.joke.answer"), joke.getDelivery()))
@@ -118,23 +118,26 @@ public class JokeService implements ConfigLocalMessage {
                 return BotAnswer.builder()
                         .message(getTextMessage("bot.message.joke.try_again"))
                         .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                        .listaButton(new String[] { getTextMessage("bot.choice.quit") })  // TODO Verificar se ocorre erro pela falta do "|"
+                        .listaButton(new String[] { getTextMessage("bot.choice.quit") })
                         .build();
             }
         }
 
-        if(isReveal && userMessage.matches("(?i).*" + getTextMessage("bot.choice.negative") + ".*")) {
-            return BotAnswer.builder()
-                    .message(getTextMessage("bot.message.see_you"))
-                    .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
-                    .build();
-        }
+        if(isReveal) {
 
-        if(isReveal && userMessage.contains("talvez mais tarde")) {
-            return BotAnswer.builder()
-                    .message(getTextMessage("bot.message.maybe_later"))
-                    .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
-                    .build();
+            if(userMessage.matches(RegexUtil.getRegexCaseInsensitive(getTextMessage("bot.choice.negative")))) {
+                return BotAnswer.builder()
+                        .message(getTextMessage("bot.message.see_you"))
+                        .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                        .build();
+            }
+
+            if(userMessage.matches(RegexUtil.getRegexCaseInsensitive(getTextMessage("bot.choice.later")))) {
+                return BotAnswer.builder()
+                        .message(getTextMessage("bot.message.maybe_later"))
+                        .tipoMensagem(TipoResposta.SIMPLE_MESSAGE)
+                        .build();
+            }
         }
 
         return BotAnswer.builder()
