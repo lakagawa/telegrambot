@@ -15,7 +15,6 @@ import telegrambot.service.BotService;
 import telegrambot.service.JokeService;
 
 import java.util.List;
-import java.util.Locale;
 
 @Log
 public class FiapBot {
@@ -71,7 +70,7 @@ public class FiapBot {
 
                     // Envio da mensagem de resposta.
 
-                    String msgUpdated = update.message().text().toLowerCase(Locale.ROOT);
+                    String msgUpdated = update.message().text().toLowerCase();
 
                     BotAnswer botAnswer = botService.validateTypeOfMessage(msgUpdated);
 
