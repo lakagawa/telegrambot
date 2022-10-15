@@ -26,6 +26,9 @@ trânsito e devolver para o usuário.
 
 ---
 
+## Repositório Github
+- https://github.com/lakagawa/telegrambot
+
 ## Configuração do Token
 
 <del>Registre o token no arquivo `src/test/resources/telegramBot.token`</del>
@@ -57,3 +60,6 @@ Cadastre a variável de ambiente `TOKEN_BOT` antes de executar.
 - https://www.rexegg.com/regex-quickstart.html
 - https://howtodoinjava.com/java/basics/java-naming-conventions/
 - https://refactoring.guru/design-patterns/chain-of-responsibility
+- https://www.baeldung.com/java-case-insensitive-string-matching
+- https://www.unicode.org/emoji/charts/full-emoji-list.html
+- https://core.telegram.org/bots/features#keyboards
