@@ -12,8 +12,6 @@ import telegrambot.utils.RegexUtil;
 import java.io.IOException;
 import java.util.Locale;
 
-import static telegrambot.service.BotMessages.BOT_LANGUAGE;
-
 /**
  * BotService - Classe responsável pela lógica do BOT
  */
@@ -62,9 +60,9 @@ public class BotService implements ConfigLocalMessage {
         // primeira iteração do usuário - Responde perguntando qual o idioma do usuário (i18n)
         if(userMessage.contains("/start")){
             return BotAnswer.builder()
-                    .message(BOT_LANGUAGE)
+                    .message(getTextMessage("bot.choice.language"))
                     .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
-                    .listaButton(new String [] {"PT \uD83C\uDDE7\uD83C\uDDF7", "EN \t\uD83C\uDDFA\uD83C\uDDF8", "ES \uD83C\uDDEA\uD83C\uDDE6"})
+                    .listaButton(getTextMessage("bot.choice.language.options").split("\\|"))
                     .build();
         }
 

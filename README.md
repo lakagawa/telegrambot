@@ -43,7 +43,7 @@ Cadastre a variável de ambiente `TOKEN_BOT` antes de executar.
 
 ## Funcionalidades
 
-### Multi linguagens
+### Multi linguagens (I18N)
 
 - pt_BR:
 - en_US:
@@ -63,3 +63,4 @@ Cadastre a variável de ambiente `TOKEN_BOT` antes de executar.
 - https://www.baeldung.com/java-case-insensitive-string-matching
 - https://www.unicode.org/emoji/charts/full-emoji-list.html
 - https://core.telegram.org/bots/features#keyboards
+- https://embarcados.com.br/maquina-de-estado/
