@@ -11,8 +11,16 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * HttpService - Classe para abstrair complexidade do uso da lib Apache HTTP para realizar requisições
+ */
 public class HttpService {
 
+    /**
+     * get - Realiza um request do tipo GET recebendo apenas a URL
+     * @param url
+     * @return
+     */
     public String get(String url) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet(url);
@@ -32,5 +40,4 @@ public class HttpService {
 
         return  "";
     }
-
 }
