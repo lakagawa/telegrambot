@@ -73,7 +73,7 @@ public class FiapBot {
 
                     String msgUpdated = update.message().text().toLowerCase(Locale.ROOT);
 
-                    BotAnswer botAnswer = jokeService.validateTypeOfMessage(msgUpdated);
+                    BotAnswer botAnswer = botService.validateTypeOfMessage(msgUpdated);
 
                     log.info("id? " + update.message().chat().id());
 
