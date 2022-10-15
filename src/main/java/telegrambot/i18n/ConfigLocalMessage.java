@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Possibilita suporte a i18n
+ * @author Thiago Zanella
+ */
 public interface ConfigLocalMessage {
 
     /**
@@ -19,4 +23,5 @@ public interface ConfigLocalMessage {
             return value;
         }
     }
+
 }

@@ -12,14 +12,15 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * HttpService - Classe para abstrair complexidade do uso da lib Apache HTTP para realizar requisições
+ * Classe para abstrair complexidade do uso da lib Apache HTTP para realizar requisições
+ * @author Lais Kagawa
  */
 public class HttpService {
 
     /**
-     * get - Realiza um request do tipo GET recebendo apenas a URL
-     * @param url
-     * @return
+     * Realiza um request do tipo GET recebendo apenas a URL
+     * @param url Valor da URL da API para integração
+     * @return Conteúdo do retorno da API no formato JSON
      */
     public String get(String url) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -37,7 +38,7 @@ public class HttpService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return  "";
     }
+
 }

@@ -11,6 +11,7 @@ import java.util.Locale;
 
 /**
  * Classe responsável por gerenciar piadas
+ * @author Lais Kagawa
  */
 @Getter
 @Setter
@@ -30,8 +31,8 @@ public class JokeService {
     /**
      * Método para consulta de uma piada em uma API pública respeitando o idioma selecionado pelo usuário
      * realiza o log de piada e da resposta no console
-     * @return
-     * @throws IOException
+     * @return Uma nova piada
+     * @throws IOException Na ocorrência de falha ao acessar/ler a API
      */
     public Joke getNewJoke() throws IOException {
         String response = http.get("https://jokeapi.dev/joke/Any?format=json&blacklistFlags=nsfw,racist,sexist&type=twopart&lang="
