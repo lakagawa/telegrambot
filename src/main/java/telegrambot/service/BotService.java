@@ -3,7 +3,6 @@ package telegrambot.service;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ReplyKeyboardRemove;
 import com.pengrad.telegrambot.request.SendMessage;
-import telegrambot.domain.Idioma;
 import telegrambot.domain.TipoResposta;
 import telegrambot.dto.BotAnswer;
 import telegrambot.i18n.ConfigLocalMessage;
@@ -69,7 +68,7 @@ public class BotService implements ConfigLocalMessage {
         // verifica o idioma escolhido e retorna "boas vindas" - se não consegue classificar o idioma responde que nao entendeu
         if(userMessage.matches(RegexUtil.getRegexMatchLanguague())) {
             try {
-               jokeService.setIdioma(IdiomaService.getIdiomaAndSetLocale(userMessage.substring(0, 2)));
+                Locale.setDefault(new Locale(userMessage.substring(0, 2)));
 
                 return BotAnswer.builder()
                         .message(getTextMessage("bot.message.greeting"))

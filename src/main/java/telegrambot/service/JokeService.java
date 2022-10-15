@@ -1,13 +1,10 @@
 package telegrambot.service;
 
-
 import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
-import telegrambot.domain.Idioma;
 import telegrambot.domain.Joke;
-import telegrambot.i18n.ConfigLocalMessage;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -18,18 +15,16 @@ import java.util.Locale;
 @Getter
 @Setter
 @Log
-public class JokeService implements ConfigLocalMessage {
+public class JokeService {
 
     private Joke joke;
     private HttpService http;
     //controla o fluxo da piada
     private boolean isReveal;
-    private Idioma idioma;
 
     public JokeService() {
         this.http = new HttpService();
         this.isReveal = true;
-        this.idioma = Idioma.PT;
     }
 
     /**
@@ -40,7 +35,7 @@ public class JokeService implements ConfigLocalMessage {
      */
     public Joke getNewJoke() throws IOException {
         String response = http.get("https://jokeapi.dev/joke/Any?format=json&blacklistFlags=nsfw,racist,sexist&type=twopart&lang="
-                + idioma.toString().toLowerCase(Locale.ROOT));
+                + Locale.getDefault().getLanguage());
 
         joke = new Gson().fromJson(response, Joke.class);
 
@@ -48,4 +43,5 @@ public class JokeService implements ConfigLocalMessage {
         log.info("Joke answer ---> " + joke.getDelivery());
         return joke;
     }
+
 }
