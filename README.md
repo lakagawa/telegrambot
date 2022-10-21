@@ -35,9 +35,14 @@ trânsito e devolver para o usuário.
 
 Cadastre a variável de ambiente `TOKEN_BOT` antes de executar.
 
-![JUNIT](docs/image/img_intellij_junit_test.PNG)
+### Executar o projeto:
+  ![EXEC](docs/image/img_intellij_exec_project.png)
 
-![MVN](docs/image/img_intellij_mvn_test.PNG)
+### Executar os testes unitários:
+  #### JUnit
+  ![JUNIT](docs/image/img_intellij_junit_test.PNG)
+  #### Mvn
+  ![MVN](docs/image/img_intellij_mvn_test.PNG)
 
 ---
 
@@ -45,9 +50,31 @@ Cadastre a variável de ambiente `TOKEN_BOT` antes de executar.
 
 ### Multi linguagens (I18N)
 
-- <del>pt_BR:</del> pt:
-- <del>en_US:</del> en:
-- <del>es_ES:</del> es:
+- <del>pt_BR</del> pt
+- <del>en_US</del> en
+- <del>es_ES</del> es
+
+
+### Interações
+
+```
+/start - Inicia a interação com o bot
+/help - Exibe o que o bot é capaz de fazer
+/language - O usuário tem a possibilidade de alterar o idioma
+```
+Mensagens das quais o bot espera uma resposta 'específica' do usuário é exibido alguns botões na qual este pode escolher para facilitar a interação.
+
+### Fluxos
+
+##### Principal
+  > /start -> seleciona idioma -> inicia o contexto da piada -> usuário responde 'bora' -> buscar piada API pública -> usuário tenta adivinhar -> feedback das tentativas de usuário (acertou ou não)
+##### Desiste
+  > /start -> seleciona idioma -> inicia o contexto da piada -> usuário responde 'bora' -> buscar piada API pública -> usuário tenta adivinhar -> feedback das tentativas de usuário (acertou ou não) ->  usuário desiste -> bot retorna com a resposta
+##### Talvez mais tarde
+  > /start -> seleciona idioma -> inicia o contexto da piada -> usuário responde 'talvez mais tarde' -> bot responde até logo
+##### Nope
+  > /start -> seleciona idioma -> inicia o contexto da piada -> usuário responde 'nope' -> bot responde até logo
+
 
 ---
 
