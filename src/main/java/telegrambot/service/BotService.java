@@ -57,11 +57,20 @@ public class BotService implements ConfigLocalMessage {
      */
     public BotAnswer validateTypeOfMessage(String userMessage) {
         // primeira iteração do usuário - Responde perguntando qual o idioma do usuário (i18n)
-        if(userMessage.contains("/start")){
+        if(userMessage.contains("/start") || userMessage.contains("/language")){
             return BotAnswer.builder()
                     .message(getTextMessage("bot.choice.language"))
                     .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
                     .listaButton(getTextMessage("bot.choice.language.options").split("\\|"))
+                    .build();
+        }
+
+        // método padrão do telegram para ajudar o usuário identificar o que o bot pode fazer
+        if(userMessage.contains("/help")){
+            return BotAnswer.builder()
+                    .message(getTextMessage("bot.message.help"))
+                    .tipoMensagem(TipoResposta.MULTIPLE_CHOICE_MESSAGE)
+                    .listaButton(new String[]{"/start"})
                     .build();
         }
 
