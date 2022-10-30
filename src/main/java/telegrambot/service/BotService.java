@@ -27,9 +27,9 @@ public class BotService implements ConfigLocalMessage {
      * Se a mensagem é simples ela tem resposta aberta
      * Se a mensagem tem multipla escolha o método além de receber a mensagem considera as opções
      *
-     * @param chatId
-     * @param botAnswer
-     * @param messageId
+     * @param chatId ID do chat
+     * @param botAnswer Tipo de Resposta
+     * @param messageId ID da mensagem
      * @return SendMessage
      */
     public SendMessage createSendMessageObject(Long chatId, BotAnswer botAnswer, Integer messageId) {
@@ -52,8 +52,8 @@ public class BotService implements ConfigLocalMessage {
 
     /**
      * Método responsável por identificar a resposta do usuário e montar uma resposta
-     * @param userMessage
-     * @return
+     * @param userMessage Mensagem enviado pelo cliente/usuário
+     * @return Objeto de resposta preenchido
      */
     public BotAnswer validateTypeOfMessage(String userMessage) {
         // primeira iteração do usuário - Responde perguntando qual o idioma do usuário (i18n)

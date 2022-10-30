@@ -26,7 +26,7 @@ public interface Bootable {
      * Obtém o conteúdo do arquivo
      * @param filepath Caminho completo do arquivo
      * @return O conteúdo (em texto) do arquivo informado
-     * @throws IOException
+     * @throws IOException Em decorrência de problemas ao ler o arquivo
      */
     @Deprecated
     static String getContent(String filepath) throws IOException {

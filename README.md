@@ -19,8 +19,7 @@ trânsito e devolver para o usuário.
 
 ## Grupo
 - RM346958: Thiago de Souza Zanella
-- RM346125: Allan Rocha
-- RM347277: Gustavo Freitas
+- <del>RM346125: Allan Rocha</del> (Desistiu do curso)
 - RM346315: Lais Kagawa
 - RM346511: Jônatha Lacerda Gonzaga
 
@@ -28,6 +27,12 @@ trânsito e devolver para o usuário.
 
 ## Repositório Github
 - https://github.com/lakagawa/telegrambot
+
+## Javadoc
+
+Disponível no diretório: [docs\javadoc](docs\javadoc)
+
+```mvn clean javadoc:javadoc```
 
 ## Configuração do Token
 

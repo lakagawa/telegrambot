@@ -8,7 +8,8 @@ public class InvalidMessageException extends RuntimeException implements Excepti
 
     /**
      * {@inheritDoc}
-     * <hr />Adiciona suporte a <i>i18n</i> nas mensagens de erro.
+     * <hr>
+     * Adiciona suporte a <i>i18n</i> nas mensagens de erro.
      * @return Mensagem de acordo com a língua configurada
      */
     @Override
